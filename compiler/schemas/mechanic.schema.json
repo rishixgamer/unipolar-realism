@@ -1,0 +1,175 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://unipolar-realism.local/schemas/mechanic.schema.json",
+  "title": "UNIPOLAR Realism Mechanic Specification",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "id",
+    "name",
+    "status",
+    "domain",
+    "scope",
+    "cadence",
+    "sources",
+    "assumptions",
+    "limitations",
+    "validation",
+    "implementation"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Z]{2,5}-[0-9]{3}$"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 3
+    },
+    "status": {
+      "enum": [
+        "draft",
+        "review",
+        "approved",
+        "implemented",
+        "deprecated"
+      ]
+    },
+    "domain": {
+      "enum": [
+        "economic",
+        "political",
+        "institutional",
+        "demographic",
+        "security",
+        "cross-domain"
+      ]
+    },
+    "scope": {
+      "type": "string"
+    },
+    "cadence": {
+      "type": "string"
+    },
+    "observables": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "endogenous": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "exogenous": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "parameters": {
+      "type": "object"
+    },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "title",
+          "url",
+          "kind"
+        ],
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "kind": {
+            "enum": [
+              "primary",
+              "official-statistics",
+              "academic",
+              "secondary"
+            ]
+          },
+          "notes": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "assumptions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "validation": {
+      "type": "object",
+      "required": [
+        "invariants",
+        "historical",
+        "counterfactual"
+      ],
+      "properties": {
+        "invariants": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "historical": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "counterfactual": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "implementation": {
+      "type": "object",
+      "required": [
+        "python_reference",
+        "victoria3_mapping"
+      ],
+      "properties": {
+        "python_reference": {
+          "type": "boolean"
+        },
+        "victoria3_mapping": {
+          "enum": [
+            "none",
+            "exact-enough",
+            "approximate",
+            "event-only",
+            "blocked"
+          ]
+        },
+        "abstraction_tolerance": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    }
+  }
+}

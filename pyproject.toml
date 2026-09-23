@@ -1,0 +1,52 @@
+[project]
+name = "unipolar-realism"
+version = "0.1.0"
+description = "Reference simulation and tooling for a deeper political-economic UNIPOLAR fork"
+readme = "README.md"
+requires-python = ">=3.12,<3.14"
+authors = [{ name = "Rishi Haldar" }]
+dependencies = [
+  "jsonschema>=4.23",
+  "pydantic>=2.10",
+  "PyYAML>=6.0",
+  "rich>=13.9",
+  "typer>=0.15",
+]
+
+[project.optional-dependencies]
+dev = [
+  "hypothesis>=6.120",
+  "pytest>=8.3",
+  "pytest-cov>=6.0",
+  "pyright>=1.1.390",
+  "ruff>=0.9",
+]
+
+[project.scripts]
+unipolar-validate-specs = "unipolar_sim.validation.specs:main"
+
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["sim/src/unipolar_sim"]
+
+[tool.pytest.ini_options]
+addopts = "-ra --strict-markers"
+testpaths = ["tests"]
+pythonpath = [".", "sim/src"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+exclude = ["mod", "generated", ".worktrees"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "RUF"]
+
+[tool.pyright]
+include = ["sim/src", "compiler", "tools", "scripts"]
+exclude = ["mod", "generated", ".worktrees"]
+pythonVersion = "3.12"
+typeCheckingMode = "standard"
