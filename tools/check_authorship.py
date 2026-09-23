@@ -43,9 +43,12 @@ OWNERSHIP: tuple[tuple[str, frozenset[str]], ...] = (
     (".claude/", frozenset({"human"})),
     ("specs/proposed/", frozenset({"claude-code", "human"})),
     ("research/mechanics/", frozenset({"claude-code", "human"})),
+    ("research/audits/", frozenset({"antigravity", "claude-code", "human"})),
     ("sim/src/", frozenset({"codex", "human"})),
     ("compiler/templates/", frozenset({"antigravity", "codex", "human"})),
     ("compiler/", frozenset({"codex", "human"})),
+    ("data/", frozenset({"antigravity", "codex", "human"})),
+    ("mod/", frozenset({"antigravity", "codex", "human"})),
     ("tools/approve_spec.py", frozenset({"human"})),
 )
 

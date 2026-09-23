@@ -9,6 +9,31 @@ Build a source-backed, empirically testable political-economic simulation of the
 
 **Accuracy takes priority over feature count.** A small, defensible model beats a large, plausible one.
 
+## Hard stops
+
+The short list. Each rule is explained further down; this is the version to keep in mind while working. If a task would require breaking one, name the rule and stop. The task is aimed at the wrong agent, or it needs the owner.
+
+No agent, ever:
+
+1. Writes into `specs/approved/`, sets `status: approved` or `status: implemented`, or runs `make approve` or `tools/approve_spec.py`.
+2. Implements a mechanic in `sim/` or `compiler/` before its specification is in `specs/approved/`. A draft in `specs/proposed/` is not a licence to start coding.
+3. Writes outside its own lane in the [path-ownership table](#path-ownership). No agent edits `AGENTS.md`, `CLAUDE.md`, `.agents/`, `.claude/` or `docs/architecture/` unless the owner directed that specific change and the commit says so (`Owner-Directed: yes`).
+4. Reviews its own work. The reviewer is always a different agent.
+5. Pushes to `main`, force pushes, runs `git reset --hard`, or amends a commit it did not write in this session.
+6. Commits without an `Agent:` trailer, or with one naming anyone other than the actual author.
+7. Hand-edits generated Paradox output, or copies upstream UNIPOLAR files into this repository.
+8. States how a real institution works without a primary or official-statistical source.
+
+The same lanes, read the other way round:
+
+| Agent | Never writes |
+| --- | --- |
+| Codex | `specs/`, `research/` |
+| Claude Code | `sim/src/`, `compiler/`, `data/`, `mod/` |
+| Antigravity | `sim/src/`, `compiler/` (except `compiler/templates/`), `specs/`, `research/mechanics/` |
+
+Rules 1 and 3 fail CI when broken, and the commit hook refuses a commit that breaks rule 6. The rest hold only because you honor them, so treat them as if they were checked.
+
 ## Layers
 
 1. `research/` + `specs/` — what the real mechanism is, and on what evidence.
