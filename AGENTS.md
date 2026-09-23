@@ -107,11 +107,16 @@ Owner-Directed: yes
 
 which lifts the owner-only restriction for that commit and lists it separately in the check output. The exemption exists so that the honest label is also the passing one — labelling such a commit `human` would corrupt the very record the trailer is for. It does not lift any other boundary: Antigravity writing `sim/` fails whether or not you directed it, because that rule is about defensibility rather than authority. It is also the project's record of who wrote what, which is what makes "which lines did you write yourself?" an answerable question.
 
-Install the hook that adds the trailer for you:
+End every commit message you write with that trailer. An agent running in a desktop app does not inherit the shell variable below, so writing the trailer yourself is the reliable route.
+
+Install the hook that adds it when it is missing:
 
 ```bash
 git config core.hooksPath scripts/hooks
+export UNIPOLAR_AGENT=human   # or codex | claude-code | antigravity
 ```
+
+The hook refuses a commit that has neither the trailer nor the variable, rather than defaulting to `human`. A commit labelled `human` that an agent actually wrote is worse than no label at all.
 
 ## Generated code
 

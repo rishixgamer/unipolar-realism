@@ -1,22 +1,54 @@
 #!/usr/bin/env bash
-# Adds an "Agent:" trailer to every commit, so the repository records who wrote what.
+# Records which agent wrote each commit, so the repository can answer
+# "which lines did you write yourself?".
 #
 # Install once per clone:   git config core.hooksPath scripts/hooks
 # Set per shell/agent:      export UNIPOLAR_AGENT=antigravity   # codex | claude-code | human
+#
+# An agent running in a desktop app does not inherit that variable, so the more
+# reliable route is for the agent to end its own commit message with the trailer.
+# This hook accepts either, and refuses rather than guessing: a commit silently
+# labelled "human" that an agent actually wrote corrupts the one record the
+# trailer exists to keep.
 set -euo pipefail
 
 message_file="$1"
 
-if grep -qi '^Agent:' "$message_file"; then
+if grep -qiE '^Agent:[[:space:]]*(antigravity|codex|claude-code|human)[[:space:]]*$' "$message_file"; then
   exit 0
 fi
 
-agent="${UNIPOLAR_AGENT:-human}"
+if grep -qi '^Agent:' "$message_file"; then
+  echo "commit-msg: the Agent trailer must be one of:" >&2
+  echo "  antigravity | codex | claude-code | human" >&2
+  exit 1
+fi
+
+agent="${UNIPOLAR_AGENT:-}"
+
+if [[ -z "$agent" ]]; then
+  cat >&2 <<'MSG'
+commit-msg: this commit has no "Agent:" trailer and UNIPOLAR_AGENT is not set.
+
+Do one of these:
+
+  1. End the commit message with a line naming who wrote it, e.g.
+         Agent: codex
+     (agents running in a desktop app should always do this)
+
+  2. Export the variable in this shell, then commit again:
+         export UNIPOLAR_AGENT=human     # or codex | claude-code | antigravity
+
+Refusing rather than defaulting: a commit labelled "human" that an agent
+actually wrote is worse than no label at all.
+MSG
+  exit 1
+fi
 
 case "$agent" in
   antigravity|codex|claude-code|human) ;;
   *)
-    echo "commit-msg hook: UNIPOLAR_AGENT='$agent' is not one of:" >&2
+    echo "commit-msg: UNIPOLAR_AGENT='$agent' is not one of:" >&2
     echo "  antigravity | codex | claude-code | human" >&2
     exit 1
     ;;

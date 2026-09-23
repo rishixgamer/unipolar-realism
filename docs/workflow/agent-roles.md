@@ -85,12 +85,17 @@ Agents do not talk to each other. Git does.
 3. The receiving agent starts from `git log` and `git diff main...HEAD` — never from a pasted summary, which is how context gets quietly lost.
 4. Review findings go in the pull request. They are part of the artifact.
 
-Install the trailer hook once:
+The trailer has two routes, and the first is the reliable one:
 
-```bash
-git config core.hooksPath scripts/hooks
-export UNIPOLAR_AGENT=antigravity   # or codex, claude-code, human
-```
+1. **The agent writes it** as the last line of its own commit message. Works everywhere, including desktop apps, which do not inherit your shell environment.
+2. **The hook adds it** from a shell variable, for commits you make yourself in a terminal:
+
+   ```bash
+   git config core.hooksPath scripts/hooks
+   export UNIPOLAR_AGENT=human   # or codex, claude-code, antigravity
+   ```
+
+The hook refuses a commit with neither, instead of defaulting to `human`. Silently attributing an agent's work to yourself is the one failure this record cannot survive, and it fails in the flattering direction, which is exactly why it needs to be loud.
 
 `make authorship` then checks every labelled commit on the branch against the path-ownership table in `AGENTS.md`.
 
