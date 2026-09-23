@@ -34,17 +34,20 @@ specs/approved/   only the project owner     status: approved | implemented
 
 The compiler reads `specs/approved/` only, so nothing reaches the mod without passing the gate. Promotion runs through `make approve ID=<MECHANIC-ID>`, which re-validates the spec, refuses on placeholder sources or null parameters, prints it in full, and requires a typed confirmation. Coding agents are blocked from that script and from writing into `specs/approved/`.
 
-## Two coding agents
+## Three coding agents
 
-| Stage | Agent |
+| Work | Agent |
 | --- | --- |
-| Upstream mapping, research, specification | Claude Code |
+| Upstream inventory, dataset intake, generated output, boilerplate | Antigravity |
+| Research and specification drafting | Claude Code |
 | Approval | you, by hand |
-| Implementation | Codex |
+| Reference model and compiler | Codex |
 | Adversarial review | the agent that did not write the code |
-| Merge | you |
+| Realism classifications, merge | you |
 
-The reviewer is never the author. See `docs/workflow/dual-agent.md` for setup and the handoff protocol.
+Two rules sit behind the split: **the reviewer is never the author**, and **the high-volume agent never writes `sim/`** — because the reference model is the part you have to be able to defend line by line.
+
+Path ownership is tabulated in `AGENTS.md` and checked by `make authorship`. Setup and the handoff protocol are in `docs/workflow/agent-roles.md`.
 
 ## Repository map
 
@@ -59,9 +62,10 @@ compiler/             approved specs -> generated Paradox artifacts
 validation/           historical, counterfactual and invariant validation
 tests/                unit / property / integration / scenario / mod tests
 tools/                audit, provenance and approval utilities
-docs/workflow/        playbooks both agents follow
+docs/workflow/        playbooks all three agents follow
 docs/architecture/    architecture decision records
 .claude/              Claude Code subagents, commands and permission rules
+.agents/              Antigravity rules and skills
 AGENTS.md             the constitution — binds every agent and the owner
 ```
 
@@ -77,6 +81,9 @@ uv sync --all-extras
 # Verify
 ./scripts/check_environment.sh
 make check
+
+# Label your commits by author (once per clone)
+git config core.hooksPath scripts/hooks
 ```
 
 Then get the upstream mod as a **sibling** directory — never inside this repository:

@@ -12,6 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - uses: astral-sh/setup-uv@v6
         with:
@@ -41,3 +43,6 @@ jobs:
 
       - name: Compiler gate
         run: uv run python compiler/compile.py
+
+      - name: Authorship boundaries
+        run: uv run python tools/check_authorship.py origin/main..HEAD

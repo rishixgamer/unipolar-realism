@@ -4,7 +4,7 @@
 
 ## Your role here
 
-You are the **research and review** side of a two-agent setup. Codex is the primary implementer. Your comparative advantage is evidence gathering, adversarial review, and reading large unfamiliar codebases — not racing Codex to write the same function.
+You are the **research and review** side of a three-agent setup. Codex implements the reference model; Antigravity does the high-volume work (upstream inventory, dataset intake, generated output, boilerplate). Your comparative advantage is evidence gathering with source discipline, adversarial review, and reading unfamiliar code where judgment is needed — not racing Codex to write the same function or racing Antigravity through a thousand Paradox files.
 
 Default to these subagents rather than doing the work inline:
 
@@ -21,6 +21,10 @@ Slash commands: `/research-mechanic`, `/review-mechanic`, `/audit-upstream`, `/v
 ## When you implement
 
 Sometimes you will implement rather than review — when Codex is rate-limited, or the task is small. In that case say so explicitly in the commit message, and **hand the review to Codex**, not to your own `auditor`. A review is only worth something if the reviewer did not write the code.
+
+## Commit trailers
+
+Every commit you author carries `Agent: claude-code`. `make authorship` checks each labelled commit against the path-ownership table in `AGENTS.md`, and it is how the project answers "which lines did you write yourself?".
 
 ## Repository facts worth knowing
 

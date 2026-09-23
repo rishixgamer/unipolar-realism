@@ -1,9 +1,9 @@
-.PHONY: setup check lint typecheck test provenance compile audit approve
+.PHONY: setup check lint typecheck test provenance compile audit approve authorship
 
 setup:
 	uv sync --all-extras
 
-check: lint typecheck test provenance compile
+check: lint typecheck test provenance compile authorship
 
 lint:
 	uv run ruff check .
@@ -19,6 +19,9 @@ provenance:
 
 compile:
 	uv run python compiler/compile.py
+
+authorship:
+	uv run python tools/check_authorship.py $(RANGE)
 
 audit:
 	@test -n "$(UPSTREAM)" || (echo "Usage: make audit UPSTREAM=../upstream-unipolar" && exit 2)

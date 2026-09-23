@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# Adds an "Agent:" trailer to every commit, so the repository records who wrote what.
+#
+# Install once per clone:   git config core.hooksPath scripts/hooks
+# Set per shell/agent:      export UNIPOLAR_AGENT=antigravity   # codex | claude-code | human
+set -euo pipefail
+
+message_file="$1"
+
+if grep -qi '^Agent:' "$message_file"; then
+  exit 0
+fi
+
+agent="${UNIPOLAR_AGENT:-human}"
+
+case "$agent" in
+  antigravity|codex|claude-code|human) ;;
+  *)
+    echo "commit-msg hook: UNIPOLAR_AGENT='$agent' is not one of:" >&2
+    echo "  antigravity | codex | claude-code | human" >&2
+    exit 1
+    ;;
+esac
+
+printf '\nAgent: %s\n' "$agent" >> "$message_file"

@@ -54,17 +54,64 @@ Where serious empirical or academic disagreement exists, document the competing 
 
 ## Division of labor
 
-Two coding agents work this repository, and the split is deliberate: whichever agent writes a piece of work does not review it.
+Three coding agents work this repository. The split is deliberate and has two rules behind it.
 
-| Role | Agent | May write |
-| --- | --- | --- |
-| Research and specification | Claude Code (`researcher` subagent) | `research/`, `specs/proposed/` |
-| Implementation | Codex | `sim/`, `compiler/`, `tests/`, `tools/`, `mod/` sources |
-| Adversarial review | Claude Code (`auditor` subagent) | nothing |
-| Upstream mapping | Claude Code (`upstream-scout` subagent) | nothing |
-| Approval and merge | the project owner | `specs/approved/`, `main` |
+**Rule one: the reviewer is never the author.** The model family that produced an abstraction does not get to be the sole judge of it.
 
-When Claude Code implements something instead of Codex, Codex reviews it. The point is that the model family that produced an abstraction is never the sole judge of it.
+**Rule two: the owner must be able to defend every line of the reference model.** So the high-volume agent never writes it.
+
+| Work | Agent |
+| --- | --- |
+| Upstream mod inventory and subsystem mapping | Antigravity |
+| Dataset intake, transformation scripts, registry | Antigravity |
+| Generated Paradox output, templates, localization | Antigravity |
+| Test boilerplate and mechanical refactors | Antigravity |
+| Research and specification drafting | Claude Code (`researcher`) |
+| Reference model in `sim/`, and the compiler | Codex |
+| Adversarial review | Claude Code (`auditor`) for Codex and Antigravity; Codex for Claude Code |
+| Realism classifications, approval, merge | the project owner |
+
+### Path ownership
+
+| Path | May be written by |
+| --- | --- |
+| `sim/src/unipolar_sim/` | Codex, the owner |
+| `compiler/` (except `templates/`) | Codex, the owner |
+| `specs/proposed/` | Claude Code, the owner |
+| `specs/approved/` | **the owner only** |
+| `research/mechanics/` | Claude Code, the owner |
+| `research/audits/` | Antigravity, Claude Code, the owner |
+| `data/`, `mod/`, `compiler/templates/` | Antigravity, Codex, the owner |
+| `tests/` | any agent |
+| `docs/architecture/` | **the owner only** |
+| `AGENTS.md`, `CLAUDE.md`, `.agents/`, `.claude/` | **the owner only** |
+
+An agent editing the file that constrains it defeats the purpose of the file.
+
+### Commit trailers
+
+Every commit carries a trailer naming who wrote it:
+
+```
+Agent: antigravity | codex | claude-code | human
+```
+
+`tools/check_authorship.py` checks each labelled commit against the table above and fails CI on a boundary violation.
+
+When you direct an agent to change one of the owner-only files, that commit carries both trailers:
+
+```
+Agent: claude-code
+Owner-Directed: yes
+```
+
+which lifts the owner-only restriction for that commit and lists it separately in the check output. The exemption exists so that the honest label is also the passing one — labelling such a commit `human` would corrupt the very record the trailer is for. It does not lift any other boundary: Antigravity writing `sim/` fails whether or not you directed it, because that rule is about defensibility rather than authority. It is also the project's record of who wrote what, which is what makes "which lines did you write yourself?" an answerable question.
+
+Install the hook that adds the trailer for you:
+
+```bash
+git config core.hooksPath scripts/hooks
+```
 
 ## Generated code
 
