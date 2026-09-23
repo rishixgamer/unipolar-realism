@@ -1,0 +1,13 @@
+datasets: []
+
+# Each future entry should record at minimum:
+# - id
+# - title
+# - publisher
+# - source_url
+# - license_or_terms
+# - retrieval_date
+# - raw_path (if redistributable)
+# - transformation_script
+# - processed_path
+# - geographic/temporal coverage

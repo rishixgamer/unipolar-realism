@@ -1,0 +1,50 @@
+id: MON-001
+name: Central-bank policy-rate reaction function
+status: draft
+domain: economic
+scope: country
+cadence: meeting-driven / monthly reference tick
+
+observables:
+  - consumer_price_inflation
+  - unemployment_rate
+  - policy_rate
+
+endogenous:
+  - policy_rate
+  - expected_real_rate
+
+exogenous:
+  - inflation_target
+  - institutional_mandate
+
+parameters:
+  neutral_real_rate: null
+  inflation_response: null
+  activity_response: null
+  smoothing: null
+
+sources:
+  - title: Federal Reserve — Monetary Policy Principles and Practice
+    url: https://www.federalreserve.gov/monetarypolicy/monetary-policy-principles-and-practice.htm
+    kind: primary
+    notes: Placeholder starting source; researcher must expand before approval.
+
+assumptions:
+  - The reference model may use a configurable rule as a behavioral approximation rather than claiming central banks mechanically follow one equation.
+
+limitations:
+  - A policy-rule abstraction cannot reproduce committee deliberation, expectations formation, the full yield curve, or unconventional policy by itself.
+
+validation:
+  invariants:
+    - Policy rate remains finite and respects any scenario-defined lower/upper bounds.
+  historical:
+    - Compare simulated direction and magnitude with the configured calibration period; do not fit and evaluate on the same holdout window.
+  counterfactual:
+    - A persistent positive inflation shock should increase the modeled policy-rate response under a positive inflation-response coefficient, all else equal.
+
+implementation:
+  python_reference: true
+  victoria3_mapping: approximate
+  abstraction_tolerance: To be defined before approval.

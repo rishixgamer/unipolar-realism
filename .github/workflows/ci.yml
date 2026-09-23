@@ -1,0 +1,48 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: "latest"
+          enable-cache: true
+
+      - name: Set up Python
+        run: uv python install 3.12
+
+      - name: Install dependencies
+        run: uv sync --extra dev
+
+      - name: Ruff
+        run: uv run ruff check .
+
+      - name: Pyright
+        run: uv run pyright sim/src
+
+      - name: Tests
+        run: uv run pytest
+
+      - name: Provenance
+        run: uv run python tools/check_provenance.py
+
+      - name: Approval gate
+        run: uv run python -m unipolar_sim.validation.specs
+
+      - name: Compiler gate
+        run: uv run python compiler/compile.py
+
+      - name: Authorship boundaries
+        run: uv run python tools/check_authorship.py origin/main..HEAD

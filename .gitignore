@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.pyright/
+.venv/
+.coverage
+htmlcov/
+
+# Build/generated
+build/
+dist/
+*.egg-info/
+generated/
+validation/reports/generated/
+
+# Local data
+/data/raw/*
+!/data/raw/.gitkeep
+/data/cache/
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Editors / OS
+.DS_Store
+.idea/
+.vscode/settings.json
+
+# OpenCode worktrees
+.worktrees/
+
+# Victoria / Paradox local artifacts
+*.log
+*.tmp
+mod/.metadata/
