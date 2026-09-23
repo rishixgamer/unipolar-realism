@@ -2,7 +2,7 @@
 
 A living note for whoever picks this up next, human or agent. **Update it when you finish a session**, so the next reader starts from fact rather than from a chat log they cannot see.
 
-Last updated: 2026-09-19
+Last updated: 2026-09-22
 
 ## Read these first, in order
 
@@ -31,25 +31,25 @@ Four layers, deliberately separated: sourced specifications → an executable Py
 | | |
 | --- | --- |
 | Location | `~/Projects/unipolar-realism` |
-| Branch | `setup/dual-agent-scaffold`, 4 commits ahead of `main` |
-| `main` | still the original empty commit |
-| Remote | **none — nothing is on GitHub yet** |
-| Upstream mod | **not cloned** — belongs at `../upstream-unipolar` |
+| Branch | `chore/post-merge-refresh` (local, not pushed) |
+| `main` | PR #1 merged (`e090615`) |
+| Remote | `origin`: `https://github.com/rishixgamer/unipolar-realism.git` |
+| Upstream mod | Sibling clone exists at `../upstream-unipolar` (`bamcat/vic3-unipolar`) |
 | Commit hook | installed (`core.hooksPath = scripts/hooks`) |
-| Commit email | still personal; owner may switch to a GitHub no-reply address |
-| Checks | `make check` green as of the last run on macOS |
+| Commit email | `267394493+rishixgamer@users.noreply.github.com` |
+| Checks | CI has run green; `make check` green on macOS |
 | Approved specs | none. `MON-001` is drafted in `specs/proposed/economic/` and deliberately not yet approved |
 | Simulation code | two files: a debt accounting identity and a seeded RNG. Nothing else exists yet |
 
 ## Where the owner is right now
 
-Part-way through Session 0 of `docs/workflow/` setup (the runbook lives outside the repo). Completed: repo moved out of Downloads, virtual environment rebuilt, toolchain verified, commit hook installed.
+Session 0 repository setup is complete: the remote exists, PR #1 is merged, CI has run green, and the commit email uses GitHub's no-reply address.
 
-**The next action is:** decide the commit email, then push `main` and the branch to a new public GitHub repo, open a pull request, watch CI run for the first time, and merge it by hand.
+**The next action is:** clone upstream and run the audit.
 
-After that, in order:
+For the audit and following work:
 
-1. Clone the upstream mod as a **sibling** directory: `git clone https://github.com/bamcat/vic3-unipolar.git ../upstream-unipolar`. Never inside this repo — it has no licence file.
+1. Use the upstream mod as a **sibling** directory at `../upstream-unipolar`; a local clone is already present. Never place it inside this repo — it has no licence file.
 2. Run `make audit UPSTREAM=../upstream-unipolar` and commit the raw inventory before anyone interprets it.
 3. The owner reads the mod himself for two to three hours. This step is not delegable.
 4. Map the subsystems into `research/audits/subsystems/`, factual columns only.
@@ -74,7 +74,6 @@ If the owner directed you to change an owner-only file, add `Owner-Directed: yes
 - **The virtual environment is macOS-specific.** Do not let a Linux environment run `uv sync` against it; it will try to rebuild it and break it for the owner.
 - **`make approve` refusing is not a bug.** Placeholder sources and null parameters are what it is there to catch, and there is deliberately no override flag.
 - **`brew install --cask codex` fails on this machine** with a `--cask`/`--git` conflict, some local Homebrew config. Use `npm install -g @openai/codex` instead, or the desktop app.
-- **CI has never run.** Expect one or two environment surprises on the first pull request.
 
 ## What good work looks like here
 
