@@ -46,16 +46,16 @@ Four layers, deliberately separated: sourced specifications → an executable Py
 
 Session 0 repository setup is complete: the remote exists, PR #1 is merged, CI has run green, and the commit email uses GitHub's no-reply address.
 
-Steps 1–3 are done: upstream is cloned, the raw audit is committed (PR #4), and the owner has read the mod.
+Steps 1–4 are done: upstream is cloned, the raw audit is committed (PR #4), the owner has read the mod, and eight factual subsystem maps are in `research/audits/subsystems/` (PR #3). Start from its `README.md`, which lists findings that cut across subsystems.
 
-**The next action is:** map the subsystems into `research/audits/subsystems/`, factual columns only (step 4).
+**The next action is:** the owner classifies each subsystem (step 5). Agents must not.
 
 For the audit and following work:
 
 1. **Done.** Use the upstream mod as a **sibling** directory at `../upstream-unipolar`; a local clone is already present. Never place it inside this repo — it has no licence file.
 2. **Done (`64f9db4`, PR #4).** Run `make audit UPSTREAM=../upstream-unipolar` and commit the raw inventory before anyone interprets it.
 3. **Done.** The owner reads the mod himself for two to three hours. This step is not delegable.
-4. Map the subsystems into `research/audits/subsystems/`, factual columns only.
+4. **Done (PR #3).** Map the subsystems into `research/audits/subsystems/`, factual columns only.
 5. The owner classifies each subsystem `KEEP`/`CALIBRATE`/`REWORK`/`REPLACE`/`REMOVE`/`UNKNOWN`. Agents must not.
 6. Research `MON-001` properly, then the owner approves it with `make approve ID=MON-001`.
 7. Implement it, review it with a different agent, merge.
