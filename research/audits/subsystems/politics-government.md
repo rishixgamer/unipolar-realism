@@ -27,7 +27,7 @@ Upstream `bamcat/vic3-unipolar` at `9f3854f`. Paths relative to `mod/`. Facts ab
 | Laws (`law_`) | 152 (58 `REPLACE_OR_CREATE:`) |
 | Amendments | 11 |
 | Institutions | 12 active |
-| Government types (`gov_`) | 267 blocks, 260 distinct keys |
+| Government types (`gov_`) | 267, all distinct |
 | Decrees | 10 |
 | Interest groups | 9, all `REPLACE_OR_CREATE:` |
 | Ideologies | 123 |
@@ -43,7 +43,7 @@ Upstream `bamcat/vic3-unipolar` at `9f3854f`. Paths relative to `mod/`. Facts ab
 
 **Institutions** apply modifiers directly, e.g. `state_welfare_payments_add = 0.2` at `common/institutions/00_institutions.txt:13`. Some carry comments saying the displayed modifier is informational and the real cost is applied elsewhere (lines 29–33 for schools; see the public-service expense scripts in [core rules](core-rules-technology.md)).
 
-**`classification_summary_v4.txt`** lists the 260 distinct government-type keys under five headings with counts: theocratic 19, left-authoritarian 15, left-democratic 35, right-democratic 14, right-authoritarian 177. Every key in it exists in `common/government_types/`. No file in `mod/` refers to it, so it is not loaded by the game.
+**`classification_summary_v4.txt`** lists 260 government-type keys under five headings with counts: theocratic 19, left-authoritarian 15, left-democratic 35, right-democratic 14, right-authoritarian 177. Every key in it exists in `common/government_types/`, but it omits 7 of the 267 defined there: `gov_colonial_administration_gov_in_chief`, `gov_dalai_lama`, `gov_decentralized_sultanate`, `gov_francocracia`, `gov_french_2nd_republic_parliamentary`, `gov_papal_commune`, `gov_volksgemeinschaft`. No file in `mod/` refers to it, so it is not loaded by the game.
 
 ## Where the numbers come from
 
@@ -57,6 +57,6 @@ No citation or external source appears in these directories. Comments present ex
 ## Open questions about the mod
 
 - What produced `classification_summary_v4.txt`, and what were versions 1–3?
-- Why do 267 government-type blocks resolve to 260 keys — which keys are defined twice, and which definition wins?
+- Why does `classification_summary_v4.txt` leave out the 7 government types listed above?
 - Is `institution_intelligence_agency` planned or abandoned?
 - Is `00_servants.txt` a leftover?

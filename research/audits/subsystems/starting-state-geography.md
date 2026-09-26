@@ -30,8 +30,8 @@ Other directories:
 
 | Definition | Count |
 | --- | ---: |
-| Country-tag definition blocks in `common/country_definitions/` | 1,564 |
-| Distinct tags | 1,347; 217 tags are defined more than once |
+| Country-tag declarations in `common/country_definitions/` | 1,567 (column-0 `TAG =`, with the `{` on the same line or the next) |
+| Distinct tags | 1,349; 218 tags are declared more than once |
 
 ## As scripted
 
@@ -49,7 +49,7 @@ Other directories:
 
 ## Where the numbers come from
 
-No citation or external source appears in `common/history/countries/`, `diplomacy/`, `common/country_definitions/`, `country_formation/` or `map_data/`. The only sourcing comments in `common/history/` are the 1830s population notes in `pops/New folder/`.
+No citation or external source appears in `common/history/countries/`, `diplomacy/`, `common/country_definitions/`, `country_formation/` or `map_data/`. The only sourcing comments in `common/history/` are the 19th-century population notes and labels in `pops/New folder/`.
 
 ## Dependencies
 
@@ -59,6 +59,6 @@ No citation or external source appears in `common/history/countries/`, `diplomac
 ## Open questions about the mod
 
 - What did `fake_gdp_effect` and `fake_population_effect` do, and does calling an undefined effect log an error at start?
-- For the 217 tags defined more than once, which definition wins, and are the duplicates deliberate overrides?
+- For the 218 tags declared more than once, which definition wins, and are the duplicates deliberate overrides?
 - Are the Python scripts and CSV in `common/history/buildings/` one-off tools whose output is already applied?
 - Is `map_data/` a whole replacement map, or edits to the base map?

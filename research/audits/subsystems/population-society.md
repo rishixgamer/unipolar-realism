@@ -33,7 +33,7 @@ Upstream `bamcat/vic3-unipolar` at `9f3854f`. Paths relative to `mod/`. Facts ab
 - `common/pop_types/capitalists.txt`: `wage_weight = 40`, `literacy_target = 0.35` (lines 5–7).
 - `common/pop_types/peasants.txt:10`: `consumption_mult = 0.05`.
 
-Qualification formulas for engineers, professionals, clerks and machinists carry comments saying literacy has been redefined as college education, e.g. `common/pop_types/engineers.txt:50–52`:
+Qualification formulas for engineers, professionals, clerks and machinists carry comments saying literacy has been redefined as college education. `common/pop_types/engineers.txt:50–52` is the mod author's comment. Its claims about "a developed nation" and manufacturing being "33% engineers" describe the mod's own settings, are unsourced, and are quoted here only as the mod's stated rationale:
 
 > Rescaled to the mod's college-educated literacy: the old gate of 0.20 meant a developed nation at exactly 20% produced NO engineers, and manufacturing is 33% engineers.
 
@@ -43,7 +43,7 @@ Qualification formulas for engineers, professionals, clerks and machinists carry
 
 - Pop-type constants: no source. The comments above explain the formula, not where its numbers came from.
 - Top-level starting pop sizes (`common/history/pops/*.txt`): no source comments.
-- `common/history/pops/New folder/` is the only place in the mapped directories with source comments, and they describe 1830s figures. For example, line 204 of `New folder/01_south_europe.txt` mentions the census of 1833, and line 1 of `New folder/07_south_america.txt` discusses estimates of Brazil's population in the 1830s.
+- `common/history/pops/New folder/` is the only place in the mapped directories with source comments, and they concern 19th-century figures. Examples: line 204 of `New folder/01_south_europe.txt` mentions the census of 1833; line 1 of `New folder/07_south_america.txt` discusses estimates of Brazil's population in the 1830s; line 853 of the same file labels a pop `size = 14325 # 1840 Amazonas Census`. They are source labels, not full citations.
 
 ## Dependencies
 

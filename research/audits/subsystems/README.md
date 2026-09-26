@@ -14,7 +14,8 @@ No upstream file is copied here. Short quotations of upstream comments are inclu
 ## Paths and counts
 
 - Every path is relative to `mod/` in the upstream checkout.
-- A **count** is the number of column-0 `key = {` or `REPLACE_OR_CREATE:key = {` blocks with the stated key prefix, counted per file (a UTF-8 byte-order mark is ignored). Where no prefix is given, every column-0 block in the directory was counted, which can include helper blocks that are not definitions.
+- A **count** is the number of column-0 `key = {` or `REPLACE_OR_CREATE:key = {` blocks with the stated key prefix, counted file by file (a UTF-8 byte-order mark is ignored). Where no prefix is given, every column-0 block in the directory was counted, which can include helper blocks that are not definitions. Country tags are the one exception: many put `{` on the next line, so they are counted as column-0 `TAG =` declarations (see the starting-state map).
+- Files are counted one at a time, never joined first: many upstream files have no final newline, so joining them merges the next file's first definition into the previous line and undercounts.
 - `REPLACE_OR_CREATE:` is the mod's marker for overriding a definition of the same key in the base game; a bare key adds a new definition.
 
 ## Subsystems
@@ -30,9 +31,9 @@ No upstream file is copied here. Short quotations of upstream comments are inclu
 | [Starting state and geography](starting-state-geography.md) | `history/`, `country_definitions`, `country_creation`, `country_formation`, `dynamic_country_names`, `geographic_regions`, `strategic_regions`, `map_data/` |
 | [Core rules, modifiers and technology](core-rules-technology.md) | `defines`, `static_modifiers`, `modifier_type_definitions`, `script_values`, `scripted_effects`, `scripted_triggers`, `scripted_modifiers`, `technology` |
 
-## Not mapped: presentation only
+## Not mapped: presentation and interface
 
-These directories affect how the game looks or sounds, not what it simulates, and were not scouted. File counts:
+These directories were not scouted. Most affect only how the game looks or sounds. `gui/` is the exception: it is interface, and its buttons call game actions (e.g. `gui/power_bloc_panel.gui:279` executes a diplomatic action, and `:2337` kicks a country from a power bloc; 13 of its 18 files contain `onclick` handlers). The actions themselves are defined in the mapped directories, but `gui/` decides what the player can trigger and from where. File counts:
 
 | Directory | Files |
 | --- | ---: |
@@ -55,6 +56,6 @@ These directories affect how the game looks or sounds, not what it simulates, an
 
 ## Findings that cut across subsystems
 
-- **No numeric value in the mapped directories carries an external source.** The only source-like comments found are in `common/history/pops/New folder/`, and they describe 1830s population estimates (see the population map).
+- **Almost no numeric value carries an external source.** The only source comments found are in `common/history/pops/New folder/`, and they concern 19th-century population figures: prose notes on 1830s estimates, and short labels such as `size = 14325 # 1840 Amazonas Census` (`New folder/07_south_america.txt:853`). None of these is a full citation (see the population map).
 - **A nuclear-weapons system spans several subsystems**: `common/static_modifiers/99_nuclear.txt`, `common/scripted_effects/00_smd_nuclear_scripted_effects.txt`, `common/script_values/smd_nuclear_script_values.txt`, `common/journal_entries/99_nukes.txt`, `common/on_actions/99_nuclear_on_actions.txt`, `common/war_goal_types/00_disarm_nukes.txt`, `common/diplomatic_actions/99_threaten_nuclear_hostilities.txt`, and per-country `nukes` variables in `common/history/countries/`. No single map covers it end to end.
 - **Starting GDP is not set as a number.** `common/history/countries/00_streamlining.txt:24` calls `fake_gdp_effect = yes`, but no definition of `fake_gdp_effect` exists anywhere in `mod/`.
