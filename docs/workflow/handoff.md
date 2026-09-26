@@ -31,11 +31,11 @@ Four layers, deliberately separated: sourced specifications → an executable Py
 | | |
 | --- | --- |
 | Location | `~/Projects/unipolar-realism` |
-| Branch | `claude/busy-volta-c0h8gk` (2026-09-26 cloud session): carries this handoff update only |
-| `main` | PR #2 merged (`f3448be`) |
+| Branch | `claude/busy-volta-c0h8gk` (2026-09-26 cloud session, PR #3): this handoff update and the subsystem maps |
+| `main` | PR #4 merged (`891bd16`) |
 | Remote | `origin`: `https://github.com/rishixgamer/unipolar-realism.git` |
 | Upstream mod | Sibling clone at `../upstream-unipolar` (`bamcat/vic3-unipolar`). The audit ran against `9f3854f84c0cc5ea15cff126c8bb902a4cdb7285` (7,894 files) |
-| Upstream audit | Ran once in the 2026-09-26 cloud session, but its output is **not in the repository**: the commit could not be pushed (see Known gotchas). Rerun it and commit `research/audits/upstream-inventory.json` and `research/audits/realism-gap-register.json`. Observed on that run: every register entry `UNKNOWN`; 6,299 of the 7,894 files in the tool's `other` bucket, so its path-based subsystem heuristic is coarse |
+| Upstream audit | Raw output committed by the owner (`64f9db4`, PR #4), uninterpreted: `research/audits/upstream-inventory.json` and `research/audits/realism-gap-register.json`. Every register entry is `UNKNOWN`. 6,299 of the 7,894 files fall in the tool's `other` bucket, so its path-based subsystem heuristic is coarse |
 | Commit hook | installed (`core.hooksPath = scripts/hooks`) |
 | Commit email | `267394493+rishixgamer@users.noreply.github.com` |
 | Checks | CI has run green; `make check` green on macOS, and green on Linux in the 2026-09-26 cloud session |
@@ -46,14 +46,14 @@ Four layers, deliberately separated: sourced specifications → an executable Py
 
 Session 0 repository setup is complete: the remote exists, PR #1 is merged, CI has run green, and the commit email uses GitHub's no-reply address.
 
-Upstream is cloned (step 1) and the owner has read the mod (step 3). The audit has been run but its raw output is not committed yet (step 2).
+Steps 1–3 are done: upstream is cloned, the raw audit is committed (PR #4), and the owner has read the mod.
 
-**The next action is:** rerun `make audit UPSTREAM=../upstream-unipolar` from a session that can push, and commit the raw output. Then map the subsystems into `research/audits/subsystems/`, factual columns only (step 4).
+**The next action is:** map the subsystems into `research/audits/subsystems/`, factual columns only (step 4).
 
 For the audit and following work:
 
 1. **Done.** Use the upstream mod as a **sibling** directory at `../upstream-unipolar`; a local clone is already present. Never place it inside this repo — it has no licence file.
-2. **Ran, output not committed.** Run `make audit UPSTREAM=../upstream-unipolar` and commit the raw inventory before anyone interprets it.
+2. **Done (`64f9db4`, PR #4).** Run `make audit UPSTREAM=../upstream-unipolar` and commit the raw inventory before anyone interprets it.
 3. **Done.** The owner reads the mod himself for two to three hours. This step is not delegable.
 4. Map the subsystems into `research/audits/subsystems/`, factual columns only.
 5. The owner classifies each subsystem `KEEP`/`CALIBRATE`/`REWORK`/`REPLACE`/`REMOVE`/`UNKNOWN`. Agents must not.
@@ -76,7 +76,7 @@ If the owner directed you to change an owner-only file, add `Owner-Directed: yes
 
 - **The virtual environment is macOS-specific.** Do not let a Linux environment run `uv sync` against it; it will try to rebuild it and break it for the owner.
 - **A cloud (Linux) session has its own fresh venv**, separate from the macOS one. There, run `uv sync --all-extras` before `make check`, or pytest falls through to system Python and fails on `import yaml`.
-- **Claude Code cannot push from a cloud session under the current `.claude/settings.json`.** `git push` is denied, `git send-pack` and self-edits to the settings file are refused by Claude Code's auto-mode safety check, and the GitHub API tools cannot carry the 1.3 MB audit inventory. The owner must narrow the push rule (still denying pushes to `main` and force pushes) before a cloud session can land the audit.
+- **Claude Code cannot push from a cloud session under the current `.claude/settings.json`.** `git push` is denied, `git send-pack` and self-edits to the settings file are refused by Claude Code's auto-mode safety check, and the GitHub API tools cannot carry large files such as the 1.3 MB audit inventory. Small text changes can go through the GitHub API tools; anything large needs the owner to push, or to narrow the push rule (still denying pushes to `main` and force pushes).
 - **`scripts/cloud_session_start.sh` does not exist.** It has been asked for by name; `scripts/check_environment.sh` is the closest existing script.
 - **`make approve` refusing is not a bug.** Placeholder sources and null parameters are what it is there to catch, and there is deliberately no override flag.
 - **`brew install --cask codex` fails on this machine** with a `--cask`/`--git` conflict, some local Homebrew config. Use `npm install -g @openai/codex` instead, or the desktop app.
