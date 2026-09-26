@@ -1,0 +1,109 @@
+{
+  "allowed_classifications": [
+    "KEEP",
+    "CALIBRATE",
+    "REWORK",
+    "REPLACE",
+    "REMOVE",
+    "UNKNOWN"
+  ],
+  "entries": [
+    {
+      "id": "AUDIT-001",
+      "subsystem": "other",
+      "files": 6299,
+      "classification": "UNKNOWN",
+      "current_implementation": "Requires agent/human inspection",
+      "real_world_target": "Requires sourced research",
+      "evidence_needed": [],
+      "severity": "unrated",
+      "dependencies": [],
+      "next_research_task": "Inspect representative files and define system boundaries"
+    },
+    {
+      "id": "AUDIT-002",
+      "subsystem": "economy_production",
+      "files": 502,
+      "classification": "UNKNOWN",
+      "current_implementation": "Requires agent/human inspection",
+      "real_world_target": "Requires sourced research",
+      "evidence_needed": [],
+      "severity": "unrated",
+      "dependencies": [],
+      "next_research_task": "Inspect representative files and define system boundaries"
+    },
+    {
+      "id": "AUDIT-003",
+      "subsystem": "journal_entries",
+      "files": 210,
+      "classification": "UNKNOWN",
+      "current_implementation": "Requires agent/human inspection",
+      "real_world_target": "Requires sourced research",
+      "evidence_needed": [],
+      "severity": "unrated",
+      "dependencies": [],
+      "next_research_task": "Inspect representative files and define system boundaries"
+    },
+    {
+      "id": "AUDIT-004",
+      "subsystem": "events",
+      "files": 96,
+      "classification": "UNKNOWN",
+      "current_implementation": "Requires agent/human inspection",
+      "real_world_target": "Requires sourced research",
+      "evidence_needed": [],
+      "severity": "unrated",
+      "dependencies": [],
+      "next_research_task": "Inspect representative files and define system boundaries"
+    },
+    {
+      "id": "AUDIT-005",
+      "subsystem": "diplomacy_institutions",
+      "files": 57,
+      "classification": "UNKNOWN",
+      "current_implementation": "Requires agent/human inspection",
+      "real_world_target": "Requires sourced research",
+      "evidence_needed": [],
+      "severity": "unrated",
+      "dependencies": [],
+      "next_research_task": "Inspect representative files and define system boundaries"
+    },
+    {
+      "id": "AUDIT-006",
+      "subsystem": "politics_laws",
+      "files": 37,
+      "classification": "UNKNOWN",
+      "current_implementation": "Requires agent/human inspection",
+      "real_world_target": "Requires sourced research",
+      "evidence_needed": [],
+      "severity": "unrated",
+      "dependencies": [],
+      "next_research_task": "Inspect representative files and define system boundaries"
+    },
+    {
+      "id": "AUDIT-007",
+      "subsystem": "military",
+      "files": 34,
+      "classification": "UNKNOWN",
+      "current_implementation": "Requires agent/human inspection",
+      "real_world_target": "Requires sourced research",
+      "evidence_needed": [],
+      "severity": "unrated",
+      "dependencies": [],
+      "next_research_task": "Inspect representative files and define system boundaries"
+    },
+    {
+      "id": "AUDIT-008",
+      "subsystem": "technology",
+      "files": 3,
+      "classification": "UNKNOWN",
+      "current_implementation": "Requires agent/human inspection",
+      "real_world_target": "Requires sourced research",
+      "evidence_needed": [],
+      "severity": "unrated",
+      "dependencies": [],
+      "next_research_task": "Inspect representative files and define system boundaries"
+    }
+  ],
+  "warning": "UNKNOWN is intentional. Do not assign realism classifications without evidence."
+}
